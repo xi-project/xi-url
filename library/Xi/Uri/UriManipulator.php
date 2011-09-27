@@ -21,6 +21,11 @@ class UriManipulator
     private $host;
 
     /**
+     * @var integer
+     */
+    private $port;
+
+    /**
      * @param  string         $uri
      * @return UriManipulator
      */
@@ -33,6 +38,10 @@ class UriManipulator
         }
 
         $this->host = isset($parts['host']) ? $parts['host'] : $parts['path'];
+
+        if (isset($parts['port'])) {
+            $this->port = $parts['port'];
+        }
     }
 
     /**
@@ -61,6 +70,14 @@ class UriManipulator
     public function getHost()
     {
         return $this->host;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getPort()
+    {
+        return $this->port;
     }
 
     /**

@@ -21,7 +21,7 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->manipulator = new UriManipulator('http://www.example.com');
+        $this->manipulator = new UriManipulator('http://www.example.com:10088');
     }
 
     /**
@@ -49,6 +49,14 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
     public function getsHost()
     {
         $this->assertEquals('www.example.com', $this->manipulator->getHost());
+    }
+
+    /**
+     * @test
+     */
+    public function getsPort()
+    {
+        $this->assertEquals('10088', $this->manipulator->getPort());
     }
 
     /**
