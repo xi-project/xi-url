@@ -1,19 +1,19 @@
 <?php
 
-namespace Xi\Uri;
+namespace Xi\Url;
 
 use PHPUnit_Framework_TestCase;
 
 /**
 * @category Xi
-* @package  Uri
+* @package  Url
 * @author   Mikko Hirvonen <mikko.petteri.hirvonen@gmail.com>
 * @license  http://www.opensource.org/licenses/BSD-3-Clause New BSD License
 */
-class UriManipulatorTest extends PHPUnit_Framework_TestCase
+class UrlManipulatorTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var UriManipulator
+     * @var UrlManipulator
      */
     private $manipulator;
 
@@ -21,17 +21,17 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->manipulator = new UriManipulator('http://www.example.com:10088');
+        $this->manipulator = new UrlManipulator('http://www.example.com:10088');
     }
 
     /**
      * @test
      */
-    public function getsUri()
+    public function getsUrl()
     {
         $this->assertEquals(
             'http://www.example.com',
-            $this->manipulator->getUri()
+            $this->manipulator->getUrl()
         );
     }
 
@@ -92,9 +92,9 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function handlesDomainNameAsUri()
+    public function handlesDomainNameAsUrl()
     {
-        $manipulator = new UriManipulator('www.example.com');
+        $manipulator = new UrlManipulator('www.example.com');
 
         $this->assertEquals('www.example.com', $manipulator->getHost());
         $this->assertEquals('http', $manipulator->getScheme());

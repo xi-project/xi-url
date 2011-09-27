@@ -1,19 +1,19 @@
 <?php
 
-namespace Xi\Uri;
+namespace Xi\Url;
 
 /**
- * A simple URI manipulator.
+ * A simple URL manipulator.
  *
  * Subdomain is assumed to be everything after the top level domain and the
  * second-level domain.
  *
  * @category Xi
- * @package  Uri
+ * @package  Url
  * @author   Mikko Hirvonen <mikko.petteri.hirvonen@gmail.com>
  * @license  http://www.opensource.org/licenses/BSD-3-Clause New BSD License
  */
-class UriManipulator
+class UrlManipulator
 {
     /**
      * @var string
@@ -31,12 +31,12 @@ class UriManipulator
     private $port;
 
     /**
-     * @param  string         $uri
-     * @return UriManipulator
+     * @param  string         $url
+     * @return UrlManipulator
      */
-    public function __construct($uri)
+    public function __construct($url)
     {
-        $parts = parse_url($uri);
+        $parts = parse_url($url);
 
         if (isset($parts['scheme'])) {
             $this->scheme = $parts['scheme'];
@@ -52,7 +52,7 @@ class UriManipulator
     /**
      * @return string
      */
-    public function getUri()
+    public function getUrl()
     {
         return sprintf(
             '%s://%s',
