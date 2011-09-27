@@ -84,6 +84,14 @@ class UriManipulator
     }
 
     /**
+     * @param string $subdomain
+     */
+    public function setSubdomain($subdomain)
+    {
+        $this->host = sprintf('%s.%s', $subdomain, $this->getDomain());
+    }
+
+    /**
      * @test
      */
     public function getsUri()

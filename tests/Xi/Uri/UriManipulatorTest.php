@@ -66,4 +66,18 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('www', $this->manipulator->getSubdomain());
     }
+
+    /**
+     * @test
+     */
+    public function setsSubdomain()
+    {
+        $this->manipulator->setSubdomain('foo-bar');
+
+        $this->assertEquals('foo-bar', $this->manipulator->getSubdomain());
+        $this->assertEquals(
+            'foo-bar.example.com',
+            $this->manipulator->getHost()
+        );
+    }
 }
