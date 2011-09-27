@@ -40,10 +40,7 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
      */
     public function getsScheme()
     {
-        $this->assertEquals(
-            'http',
-            $this->manipulator->getScheme()
-        );
+        $this->assertEquals('http', $this->manipulator->getScheme());
     }
 
     /**
@@ -51,10 +48,7 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
      */
     public function getsHost()
     {
-        $this->assertEquals(
-            'www.example.com',
-            $this->manipulator->getHost()
-        );
+        $this->assertEquals('www.example.com', $this->manipulator->getHost());
     }
 
     /**
@@ -62,10 +56,7 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
      */
     public function getsDomain()
     {
-        $this->assertEquals(
-            'example.com',
-            $this->manipulator->getDomain()
-        );
+        $this->assertEquals('example.com', $this->manipulator->getDomain());
     }
 
     /**
@@ -73,9 +64,6 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
      */
     public function getsSubdomain()
     {
-        $this->assertEquals(
-            'www',
-            $this->manipulator->getSubdomain()
-        );
+        $this->assertEquals('www', $this->manipulator->getSubdomain());
     }
 }
