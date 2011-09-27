@@ -99,16 +99,20 @@ class UriManipulator
     }
 
     /**
-     * Gets the subdomain part of the domain name. For "www.example.com"
-     * returns "www".
+     * Gets the subdomain part of the domain name.
+     *
+     * Examples:
+     *
+     * www.example.com     => www
+     * one.two.example.com => one.two
      *
      * @return string
      */
     public function getSubdomain()
     {
-        preg_match('/([^.]+)./', $this->host, $matches);
+        preg_match('/(.+)\.([^.]+\.[^.]+)$/', $this->host, $matches);
 
-        return $matches[1];
+        return isset($matches[1]) ? $matches[1] : '';
     }
 
     /**
@@ -116,6 +120,8 @@ class UriManipulator
      */
     public function setSubdomain($subdomain)
     {
-        $this->host = sprintf('%s.%s', $subdomain, $this->getDomain());
+        $this->host = $subdomain
+            ? sprintf('%s.%s', $subdomain, $this->getDomain())
+            : $this->getDomain();
     }
 }

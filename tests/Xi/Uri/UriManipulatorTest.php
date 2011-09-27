@@ -77,16 +77,16 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @dataProvider subdomainProvider
+     * @param string $subdomain
+     * @param string $expectedHost
      */
-    public function setsSubdomain()
+    public function handlesDifferentLevelsOfSubdomain($subdomain, $expectedHost)
     {
-        $this->manipulator->setSubdomain('foo-bar');
+        $this->manipulator->setSubdomain($subdomain);
 
-        $this->assertEquals('foo-bar', $this->manipulator->getSubdomain());
-        $this->assertEquals(
-            'foo-bar.example.com',
-            $this->manipulator->getHost()
-        );
+        $this->assertEquals($subdomain, $this->manipulator->getSubdomain());
+        $this->assertEquals($expectedHost, $this->manipulator->getHost());
     }
 
     /**
@@ -98,5 +98,18 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('www.example.com', $manipulator->getHost());
         $this->assertEquals('http', $manipulator->getScheme());
+    }
+
+    /**
+     * @return array
+     */
+    public function subdomainProvider()
+    {
+        return array(
+            array('foo-bar',      'foo-bar.example.com'),
+            array('foo.bar',      'foo.bar.example.com'),
+            array('foo.bar.quux', 'foo.bar.quux.example.com'),
+            array('',             'example.com'),
+        );
     }
 }
