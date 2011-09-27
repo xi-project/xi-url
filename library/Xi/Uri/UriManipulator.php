@@ -118,14 +118,4 @@ class UriManipulator
     {
         $this->host = sprintf('%s.%s', $subdomain, $this->getDomain());
     }
-
-    /**
-     * @test
-     */
-    public function getsUri()
-    {
-        $manipulator = new UriManipulator('http://www.example.com');
-
-        $this->assertEquals('http://www.example.com', $manipulator->getUri());
-    }
 }
