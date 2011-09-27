@@ -80,4 +80,15 @@ class UriManipulatorTest extends PHPUnit_Framework_TestCase
             $this->manipulator->getHost()
         );
     }
+
+    /**
+     * @test
+     */
+    public function handlesDomainNameAsUri()
+    {
+        $manipulator = new UriManipulator('www.example.com');
+
+        $this->assertEquals('www.example.com', $manipulator->getHost());
+        $this->assertEquals('http', $manipulator->getScheme());
+    }
 }

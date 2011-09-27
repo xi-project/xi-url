@@ -15,6 +15,9 @@ class UriManipulator
      */
     private $scheme = 'http';
 
+    /**
+     * @var string
+     */
     private $host;
 
     /**
@@ -25,8 +28,11 @@ class UriManipulator
     {
         $parts = parse_url($uri);
 
-        $this->scheme = $parts['scheme'];
-        $this->host   = $parts['host'];
+        if (isset($parts['scheme'])) {
+            $this->scheme = $parts['scheme'];
+        }
+
+        $this->host = isset($parts['host']) ? $parts['host'] : $parts['path'];
     }
 
     /**
