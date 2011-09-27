@@ -3,11 +3,16 @@
 namespace Xi\Uri;
 
 /**
-* @category Xi
-* @package  Uri
-* @author   Mikko Hirvonen <mikko.petteri.hirvonen@gmail.com>
-* @license  http://www.opensource.org/licenses/BSD-3-Clause New BSD License
-*/
+ * A simple URI manipulator.
+ *
+ * Subdomain is assumed to be everything after the top level domain and the
+ * second-level domain.
+ *
+ * @category Xi
+ * @package  Uri
+ * @author   Mikko Hirvonen <mikko.petteri.hirvonen@gmail.com>
+ * @license  http://www.opensource.org/licenses/BSD-3-Clause New BSD License
+ */
 class UriManipulator
 {
     /**
