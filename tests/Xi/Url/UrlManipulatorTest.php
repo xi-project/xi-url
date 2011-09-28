@@ -127,11 +127,26 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function setsPath()
+    {
+        $this->manipulator->setPath('/foo');
+
+        $this->assertEquals('/foo', $this->manipulator->getPath());
+    }
+
+    /**
+     * @test
+     */
     public function settersAreFluent()
     {
         $this->assertSame(
             $this->manipulator,
             $this->manipulator->setSubdomain('foo')
+        );
+
+        $this->assertSame(
+            $this->manipulator,
+            $this->manipulator->setPath('/bar')
         );
     }
 }

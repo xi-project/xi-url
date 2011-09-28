@@ -105,6 +105,17 @@ class UrlManipulator
     }
 
     /**
+     * @param  string         $path
+     * @return UrlManipulator
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
      * Gets the domain part of the domain name. For "www.example.com"
      * returns "example.com".
      *
