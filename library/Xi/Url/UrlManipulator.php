@@ -123,7 +123,7 @@ class UrlManipulator
      */
     public function getDomain()
     {
-        preg_match('/([^.]+\.[^.]+)$/', $this->host, $matches);
+        preg_match('/(([^.]+\.)?[^.]+)$/', $this->host, $matches);
 
         return $matches[1];
     }

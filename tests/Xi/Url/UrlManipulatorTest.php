@@ -149,4 +149,17 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
             $this->manipulator->setPath('/bar')
         );
     }
+
+    /**
+     * @test
+     */
+    public function handlesOnlyTopLevelDomain()
+    {
+        $manipulator = new UrlManipulator('http://localhost/login');
+
+        $this->assertEquals('localhost', $manipulator->getHost());
+        $this->assertEquals('localhost', $manipulator->getDomain());
+        $this->assertEquals('', $manipulator->getSubdomain());
+        $this->assertEquals('/login', $manipulator->getPath());
+    }
 }
