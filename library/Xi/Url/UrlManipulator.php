@@ -135,12 +135,15 @@ class UrlManipulator
     }
 
     /**
-     * @param string $subdomain
+     * @param  string         $subdomain
+     * @return UrlManipulator
      */
     public function setSubdomain($subdomain)
     {
         $this->host = $subdomain
             ? sprintf('%s.%s', $subdomain, $this->getDomain())
             : $this->getDomain();
+
+        return $this;
     }
 }

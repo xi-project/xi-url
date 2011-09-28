@@ -123,4 +123,15 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
             array('',             'example.com'),
         );
     }
+
+    /**
+     * @test
+     */
+    public function settersAreFluent()
+    {
+        $this->assertSame(
+            $this->manipulator,
+            $this->manipulator->setSubdomain('foo')
+        );
+    }
 }
