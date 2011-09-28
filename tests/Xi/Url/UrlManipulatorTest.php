@@ -30,7 +30,7 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     public function getsUrl()
     {
         $this->assertEquals(
-            'http://www.example.com',
+            'http://www.example.com:10088',
             $this->manipulator->getUrl()
         );
     }

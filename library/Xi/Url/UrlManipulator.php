@@ -55,9 +55,10 @@ class UrlManipulator
     public function getUrl()
     {
         return sprintf(
-            '%s://%s',
+            '%s://%s%s',
             $this->getScheme(),
-            $this->getHost()
+            $this->getHost(),
+            $this->getPort() ? ':' . $this->getPort() : ''
         );
     }
 
