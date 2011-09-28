@@ -31,6 +31,11 @@ class UrlManipulator
     private $port;
 
     /**
+     * @var string
+     */
+    private $path;
+
+    /**
      * @param  string         $url
      * @return UrlManipulator
      */
@@ -47,6 +52,10 @@ class UrlManipulator
         if (isset($parts['port'])) {
             $this->port = $parts['port'];
         }
+
+        $this->path = isset($parts['path']) && isset($parts['host'])
+            ? $parts['path']
+            : '';
     }
 
     /**
@@ -55,10 +64,11 @@ class UrlManipulator
     public function getUrl()
     {
         return sprintf(
-            '%s://%s%s',
+            '%s://%s%s%s',
             $this->getScheme(),
             $this->getHost(),
-            $this->getPort() ? ':' . $this->getPort() : ''
+            $this->getPort() ? ':' . $this->getPort() : '',
+            $this->getPath() ?: ''
         );
     }
 
@@ -84,6 +94,14 @@ class UrlManipulator
     public function getPort()
     {
         return $this->port;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

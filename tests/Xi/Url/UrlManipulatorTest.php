@@ -21,7 +21,9 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->manipulator = new UrlManipulator('http://www.example.com:10088');
+        $this->manipulator = new UrlManipulator(
+            'http://www.example.com:10088/some/path'
+        );
     }
 
     /**
@@ -30,7 +32,7 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     public function getsUrl()
     {
         $this->assertEquals(
-            'http://www.example.com:10088',
+            'http://www.example.com:10088/some/path',
             $this->manipulator->getUrl()
         );
     }
@@ -57,6 +59,14 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     public function getsPort()
     {
         $this->assertEquals('10088', $this->manipulator->getPort());
+    }
+
+    /**
+     * @test
+     */
+    public function getsPath()
+    {
+        $this->assertEquals('/some/path', $this->manipulator->getPath());
     }
 
     /**
@@ -96,8 +106,9 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     {
         $manipulator = new UrlManipulator('www.example.com');
 
-        $this->assertEquals('www.example.com', $manipulator->getHost());
         $this->assertEquals('http', $manipulator->getScheme());
+        $this->assertEquals('www.example.com', $manipulator->getHost());
+        $this->assertEquals('', $manipulator->getPath());
     }
 
     /**
