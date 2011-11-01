@@ -141,6 +141,11 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             $this->manipulator,
+            $this->manipulator->setDomain('quux.com')
+        );
+
+        $this->assertSame(
+            $this->manipulator,
             $this->manipulator->setSubdomain('foo')
         );
 
@@ -161,5 +166,42 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('localhost', $manipulator->getDomain());
         $this->assertEquals('', $manipulator->getSubdomain());
         $this->assertEquals('/login', $manipulator->getPath());
+    }
+
+    /**
+     * @test
+     * @dataProvider domainProvider
+     * @param string $domain
+     * @param string $expectedSubdomain
+     * @param string $expectedDomain
+     */
+    public function handlesDifferentLevelsOfDomain($domain, $expectedSubdomain,
+        $expectedDomain
+    ) {
+        $this->manipulator->setDomain($domain);
+
+        $this->assertEquals(
+            $expectedDomain,
+            $this->manipulator->getDomain(),
+            'Domain matches expected domain.'
+        );
+
+        $this->assertEquals(
+            $expectedSubdomain,
+            $this->manipulator->getSubdomain(),
+            'Subdomain matches expected subdomain.'
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function domainProvider()
+    {
+        return array(
+            array('foobar.com',       'www', 'foobar.com'),
+            array('foo.bar.quux.com', 'www', 'foo.bar.quux.com'),
+            array('localhost',        'www', 'localhost'),
+        );
     }
 }

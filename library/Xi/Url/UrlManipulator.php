@@ -5,8 +5,8 @@ namespace Xi\Url;
 /**
  * A simple URL manipulator.
  *
- * Subdomain is assumed to be everything after the top level domain and the
- * second-level domain.
+ * By default, domain is considered to be top-level domain and second-level
+ * domain, and subdomain is considered to be everything after that.
  *
  * @category Xi
  * @package  Url
@@ -23,7 +23,12 @@ class UrlManipulator
     /**
      * @var string
      */
-    private $host;
+    private $domain;
+
+    /**
+     * @var string
+     */
+    private $subdomain;
 
     /**
      * @var integer
@@ -47,7 +52,10 @@ class UrlManipulator
             $this->scheme = $parts['scheme'];
         }
 
-        $this->host = isset($parts['host']) ? $parts['host'] : $parts['path'];
+        $host = isset($parts['host']) ? $parts['host'] : $parts['path'];
+
+        $this->setDomainByHost($host);
+        $this->setSubdomainByHost($host);
 
         if (isset($parts['port'])) {
             $this->port = $parts['port'];
@@ -85,7 +93,9 @@ class UrlManipulator
      */
     public function getHost()
     {
-        return $this->host;
+        return $this->subdomain
+            ? $this->subdomain . '.' . $this->domain
+            : $this->domain;
     }
 
     /**
@@ -116,16 +126,56 @@ class UrlManipulator
     }
 
     /**
-     * Gets the domain part of the domain name. For "www.example.com"
-     * returns "example.com".
-     *
      * @return string
      */
     public function getDomain()
     {
-        preg_match('/(([^.]+\.)?[^.]+)$/', $this->host, $matches);
+        return $this->domain;
+    }
 
-        return $matches[1];
+    /**
+     * Sets the domain part.
+     *
+     * @param  string         $domain
+     * @return UrlManipulator
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubdomain()
+    {
+        return $this->subdomain;
+    }
+
+    /**
+     * @param  string         $subdomain
+     * @return UrlManipulator
+     */
+    public function setSubdomain($subdomain)
+    {
+        $this->subdomain = $subdomain;
+
+        return $this;
+    }
+
+    /**
+     * Gets the domain part of the domain name. For "www.example.com" returns
+     * "example.com".
+     *
+     * @param string $host
+     */
+    private function setDomainByHost($host)
+    {
+        preg_match('/(([^.]+\.)?[^.]+)$/', $host, $matches);
+
+        $this->domain = $matches[1];
     }
 
     /**
@@ -136,25 +186,12 @@ class UrlManipulator
      * www.example.com     => www
      * one.two.example.com => one.two
      *
-     * @return string
+     * @param string $host
      */
-    public function getSubdomain()
+    private function setSubdomainByHost($host)
     {
-        preg_match('/(.+)\.([^.]+\.[^.]+)$/', $this->host, $matches);
+        preg_match('/(.+)\.([^.]+\.[^.]+)$/', $host, $matches);
 
-        return isset($matches[1]) ? $matches[1] : '';
-    }
-
-    /**
-     * @param  string         $subdomain
-     * @return UrlManipulator
-     */
-    public function setSubdomain($subdomain)
-    {
-        $this->host = $subdomain
-            ? sprintf('%s.%s', $subdomain, $this->getDomain())
-            : $this->getDomain();
-
-        return $this;
+        $this->subdomain = isset($matches[1]) ? $matches[1] : '';
     }
 }
