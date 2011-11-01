@@ -100,18 +100,6 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @test
-     */
-    public function handlesDomainNameAsUrl()
-    {
-        $manipulator = new UrlManipulator('www.example.com');
-
-        $this->assertEquals('http', $manipulator->getScheme());
-        $this->assertEquals('www.example.com', $manipulator->getHost());
-        $this->assertEquals('', $manipulator->getPath());
-    }
-
-    /**
      * @return array
      */
     public function subdomainProvider()
@@ -122,6 +110,18 @@ class UrlManipulatorTest extends PHPUnit_Framework_TestCase
             array('foo.bar.quux', 'foo.bar.quux.example.com'),
             array('',             'example.com'),
         );
+    }
+
+    /**
+     * @test
+     */
+    public function handlesDomainNameAsUrl()
+    {
+        $manipulator = new UrlManipulator('www.example.com');
+
+        $this->assertEquals('http', $manipulator->getScheme());
+        $this->assertEquals('www.example.com', $manipulator->getHost());
+        $this->assertEquals('', $manipulator->getPath());
     }
 
     /**
